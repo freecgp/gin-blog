@@ -11,15 +11,15 @@ import (
 var db *gorm.DB
 
 type Model struct {
-	ID int `gorm:"primary_key" json: "id"`
-	CreatedOn int `json:"created_on"`
+	ID         int `gorm:"primary_key" json: "id"`
+	CreatedOn  int `json:"created_on"`
 	ModifiedOn int `json:"modified_on"`
 }
 
-func init()  {
-	var(
-		err error
-		dbType, dbName, user, password, host,tablePrefix string
+func init() {
+	var (
+		err                                               error
+		dbType, dbName, user, password, host, tablePrefix string
 	)
 	sec, err := setting.Cfg.GetSection("database")
 	if err != nil {
@@ -32,7 +32,7 @@ func init()  {
 	host = sec.Key("HOST").String()
 	tablePrefix = sec.Key("TABLE_PREFIX").String()
 
-	db_url :=  fmt.Sprintf(
+	db_url := fmt.Sprintf(
 		"%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True",
 		user,
 		password,
@@ -40,10 +40,10 @@ func init()  {
 		dbName)
 	db, err = gorm.Open(dbType, db_url)
 
-	if err !=nil {
+	if err != nil {
 		log.Printf("Fail open sql connect: %v", err)
 	}
-	gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) string  {
+	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		return tablePrefix + defaultTableName;
 	}
 	db.SingularTable(true)

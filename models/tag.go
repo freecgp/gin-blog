@@ -8,19 +8,19 @@ import (
 type Tag struct {
 	Model
 
-	Name string `json:"name"`
-	CreatedBy string `json:"created_by"`
+	Name       string `json:"name"`
+	CreatedBy  string `json:"created_by"`
 	ModifiedBy string `json:"modified_by"`
-	State int `json:"state"`
+	State      int    `json:"state"`
 }
 
-func GetTags(pageNum int, pageSize int, maps interface {}) (tags []Tag) {
+func GetTags(pageNum int, pageSize int, maps interface{}) (tags []Tag) {
 	db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&tags)
 
 	return
 }
 
-func GetTagTotal(maps interface {}) (count int){
+func GetTagTotal(maps interface{}) (count int) {
 	db.Model(&Tag{}).Where(maps).Count(&count)
 
 	return
@@ -36,11 +36,11 @@ func ExistTagByName(name string) bool {
 	return false
 }
 
-func AddTag(name string, state int, createdBy string) bool{
-	db.Create(&Tag {
-		Name : name,
-		State : state,
-		CreatedBy : createdBy,
+func AddTag(name string, state int, createdBy string) bool {
+	db.Create(&Tag{
+		Name:      name,
+		State:     state,
+		CreatedBy: createdBy,
 	})
 
 	return true
@@ -62,7 +62,7 @@ func DeleteTag(id int) bool {
 	return true
 }
 
-func EditTag(id int, data interface {}) bool {
+func EditTag(id int, data interface{}) bool {
 	db.Model(&Tag{}).Where("id = ?", id).Updates(data)
 
 	return true

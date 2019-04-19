@@ -6,19 +6,19 @@ import (
 	"time"
 )
 
-var(
-	Cfg *ini.File
+var (
+	Cfg     *ini.File
 	RunMode string
 
-	HttpPort int
-	ReadTimeout time.Duration
+	HttpPort     int
+	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 
-	PageSize int
+	PageSize  int
 	JwtSecret string
 )
 
-func init()  {
+func init() {
 	var err error
 	Cfg, err = ini.Load("conf/app.ini")
 	if err != nil {
@@ -29,11 +29,11 @@ func init()  {
 	LoadApp()
 }
 
-func LoadBase()  {
+func LoadBase() {
 	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
 }
 
-func LoadServer()  {
+func LoadServer() {
 	sec, err := Cfg.GetSection("server")
 	if err != nil {
 		log.Fatal("Fail to get section 'server' : %v", err)
@@ -44,12 +44,11 @@ func LoadServer()  {
 	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
 }
 
-func LoadApp()  {
+func LoadApp() {
 	sec, err := Cfg.GetSection("app")
-	if err != nil{
+	if err != nil {
 		log.Fatal("Fail to get section 'app' : %v", err)
 	}
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
 	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)%%455fgg")
 }
-

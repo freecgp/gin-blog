@@ -34,12 +34,11 @@ func GetTags(c *gin.Context) {
 	data["total"] = models.GetTagTotal(maps)
 
 	c.JSON(http.StatusOK, gin.H{
-		"code" : code,
-		"msg" : exception.GetMsg(code),
-		"data" : data,
+		"code": code,
+		"msg":  exception.GetMsg(code),
+		"data": data,
 	})
 }
-
 
 func AddTag(c *gin.Context) {
 	name := c.Query("name")
@@ -64,12 +63,11 @@ func AddTag(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"code" : code,
-		"msg" : exception.GetMsg(code),
-		"data" : make(map[string]string),
+		"code": code,
+		"msg":  exception.GetMsg(code),
+		"data": make(map[string]string),
 	})
 }
-
 
 //修改文章标签
 func EditTag(c *gin.Context) {
@@ -110,9 +108,9 @@ func EditTag(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"code" : code,
-		"msg" : exception.GetMsg(code),
-		"data" : make(map[string]string),
+		"code": code,
+		"msg":  exception.GetMsg(code),
+		"data": make(map[string]string),
 	})
 }
 
@@ -134,8 +132,8 @@ func DeleteTag(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"code" : code,
-		"msg" : exception.GetMsg(code),
-		"data" : make(map[string]string),
+		"code": code,
+		"msg":  exception.GetMsg(code),
+		"data": make(map[string]string),
 	})
 }
